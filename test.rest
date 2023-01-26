@@ -1,5 +1,7 @@
 @url = http://localhost:3100
 
+// test
+
 ### GET INFO
 GET {{url}}
 
