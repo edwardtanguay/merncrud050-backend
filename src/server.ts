@@ -69,18 +69,20 @@ app.post('/login', async (req: express.Request, res: express.Response) => {
 			req.session.save();
 			res.status(200).send(frontendUser);
 		} else {
-			res.status(401).send({});
+			const anonymousUser = await model.getAnonymousUser();
+			res.status(200).send(anonymousUser);
 		}
 	} else {
-		res.status(401).send({});
+		res.status(401).send('general error');
 	}
 });
 
-app.get('/get-current-user', (req: express.Request, res: express.Response) => {
+app.get('/get-current-user', async (req: express.Request, res: express.Response) => {
 	if (req.session.user) {
-		res.send(req.session.user);
+		res.status(200).send(req.session.user);
 	} else {
-		res.send('anonymousUser');
+		const anonymousUser = await model.getAnonymousUser();
+		res.status(200).send(anonymousUser);
 	}
 });
 

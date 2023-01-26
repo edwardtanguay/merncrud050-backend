@@ -29,6 +29,11 @@ export const getUser = async (username: string, password: string) => {
 	return user;
 }
 
+export const getAnonymousUser = async () => {
+	const user = await User.findOne({ username: 'anonymousUser' });
+	return user;
+}
+
 export const getBook = async (_id: string) => {
 	const rawBook = await Book.findOne({ _id });
 	const book = decorateAndSanitizeBook(rawBook);
